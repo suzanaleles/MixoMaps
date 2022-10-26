@@ -1,2 +1,2 @@
 # MixoMaps
-Mapping mixoplankton in the global oceans using OBIS and metaPR2 datasets
+Mapping mixoplankton in the global ocean using OBIS and metaPR2 datasets
