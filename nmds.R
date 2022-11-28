@@ -15,14 +15,12 @@ rm(list=ls())
 # Import data from OBIS
 size1 <- read.csv('data_final_obis_size.csv', header = T, fileEncoding="latin1")
 size1$database <- rep("OBIS", nrow(size1))
-
 size1 <- size1[rowSums(size1[4:57])>0,]
 
 
 # Import data from metaPR2
 size2 <- read.csv('data_final_meta_size.csv', header = T, fileEncoding="latin1")
 size2$database <- rep("metaPR2", nrow(size2))
-
 size2 <- size2[rowSums(size2[4:57])>0,]
 
 # Make sure we just include species that are present in OBIS and MetaPR2
@@ -44,8 +42,7 @@ size$type <- factor(size$type, level = c("CM", "GNCM", "pSNCM", "eSNCM"))
 size_pa <- size[,4:57] %>% mutate_if(is.numeric, ~1 * (. != 0))
 size_pa <- cbind(size[,1:3], size_pa)
 size_pa2 <- cbind(size_pa, size[,58:59])
-
-write_xlsx(size,"C:\\Users\\leles\\Desktop\\obis_meta.xlsx")
+size <- size_pa2
 
 # Remove rows that only contain 0 values to perform NMDS
 dnmds <- size[,4:57] %>% 
@@ -84,7 +81,7 @@ p1 <- ggplot(data = ha, aes(x = speciesx, y = speciesy, col = database)) +
   geom_point(cex = 3) +
   xlab('NMDS 1') + ylab('NMDS 2') +
   scale_color_manual(values = c(cols[1],cols[4])) +
-  annotate("text", x = -1.8, y = 1.9, label = "stress = 0.07", cex = 4.5) +
+  annotate("text", x = -1.5, y = 1.8, label = "stress = 0.07", cex = 4.5) +
   mytheme +
   theme(legend.position = c(0.8,0.87))
   
@@ -92,7 +89,7 @@ p2 <- ggplot(data = ha, aes(x = speciesx, y = speciesy, col = database, shape = 
   geom_point(cex = 3) +
   xlab('NMDS 1') + ylab('NMDS 2') +
   scale_color_manual(values = c(cols[1],cols[4])) +
-  annotate("text", x = -1.8, y = 1.9, label = "stress = 0.07", cex = 4.5) +
+  annotate("text", x = -1.5, y = 1.8, label = "stress = 0.07", cex = 4.5) +
   mytheme +
   theme(legend.position = "right")
 
@@ -103,7 +100,7 @@ p3 <- ggplot(data = ha2, aes(x = speciesx, y = speciesy, col = database, shape =
   geom_point(cex = 3) +
   xlab('NMDS 1') + ylab('NMDS 2') +
   scale_color_manual(values = c(cols[1],cols[4])) +
-  annotate("text", x = -1.8, y = 1.9, label = "stress = 0.07", cex = 4.5) +
+  annotate("text", x = -1.5, y = 1.8, label = "stress = 0.07", cex = 4.5) +
   mytheme +
   theme(legend.position = "right")
 
